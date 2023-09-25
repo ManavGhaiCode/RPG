@@ -3,21 +3,22 @@
 [ext_resource type="Texture2D" uid="uid://cpljp80dsj2v1" path="res://Sprites/Player/Player.png" id="1_6hxwq"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_xbmsj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0xin"]
-size = Vector2(13, 21)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vinc2"]
+radius = 4.0
+height = 12.0
 
 [node name="Root" type="Node2D"]
 
-[node name="Camera" type="Camera2D" parent="."]
-
 [node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(215, 102)
 script = ExtResource("1_xbmsj")
 metadata/_edit_group_ = true
-
-[node name="Collider" type="CollisionShape2D" parent="Player"]
-position = Vector2(-1.5, 2.5)
-shape = SubResource("RectangleShape2D_k0xin")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_6hxwq")
 hframes = 60
+
+[node name="Collider" type="CollisionShape2D" parent="Player"]
+position = Vector2(-1, 9)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_vinc2")

@@ -1,13 +1,10 @@
 extends CharacterBody2D
 
-var Acceleration = 100
-var Friction = 100
-var MaxSpeed: float = 100.00
+var Acceleration = 250
+var Friction = 250
+var MaxSpeed = 80
 
-var Velocity: Vector2 = Vector2.ZERO
-
-func _ready():
-	pass
+var Velocity = Vector2.ZERO
 
 func _process(delta):
 	GetInput(delta)
@@ -22,7 +19,7 @@ func GetInput(delta):
 	MoveInput.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
 	if MoveInput != Vector2.ZERO:
-		Velocity += MoveInput.normalized() * (Acceleration * delta)
-		# Velocity = Velocity.clamp()
+		Velocity = Velocity.move_toward(MoveInput * MaxSpeed, (Acceleration * delta))
+		print(Velocity)
 	else:
 		Velocity = Velocity.move_toward(Vector2.ZERO, (Friction * delta))
