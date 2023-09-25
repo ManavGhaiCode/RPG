@@ -8,7 +8,8 @@ var Velocity = Vector2.ZERO
 var MoveInput = Vector2.ZERO
 var anim = null
 
-var Dir = Vector2.ZERO
+var Dir = "Right"
+var state = 0
 
 func _ready():
 	anim = $AnimationPlayer
@@ -22,30 +23,18 @@ func _physics_process(delta):
 
 func Animator():
 	if MoveInput.x > 0:
-		anim.play("RunRight")
-		Dir.x = 1
-		Dir.y = 0
+		Dir = "Right"
 	elif MoveInput.x < 0:
-		anim.play("RunLeft")
-		Dir.x = -1
-		Dir.y = 0
-	elif MoveInput.y > 0:
-		anim.play("RunDown")
-		Dir.y = 1
-		Dir.x = 0
+		Dir = "Left"
 	elif MoveInput.y < 0:
-		anim.play("RunUp")
-		Dir.y = -1
-		Dir.x = 0
+		Dir = "Up"
+	elif MoveInput.y > 0:
+		Dir = "Down"
+	
+	if MoveInput != Vector2.ZERO:
+		anim.play("Run" + Dir)
 	else:
-		if Dir.x == 1 && Dir.y == 0:
-			anim.play("IdleRight")
-		elif Dir.x == -1 && Dir.y == 0:
-			anim.play("IdleLeft")
-		elif Dir.y == 1:
-			anim.play("IdleDown")
-		elif Dir.y == -1:
-			anim.play("IdleUp")
+		anim.play("Idle" + Dir)
 
 func GetInput(delta):
 	MoveInput = Vector2.ZERO
